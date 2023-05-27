@@ -45,7 +45,8 @@ class Business(models.Model):
     modified_at = models.DateField()
     business_photo = models.ImageField(null =True)
     closing_time = models.DateTimeField()
-    opening_time = models.DateTimeField()    
+    opening_time = models.DateTimeField()
+    rating = models.FloatField(null= True)        
 
 class Comments(models.Model):
     content = models.CharField(max_length= 2000)
