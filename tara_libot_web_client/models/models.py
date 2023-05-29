@@ -27,8 +27,6 @@ class Account(models.Model):
     created = models.DateTimeField(default=timezone.now, null=False,editable=False)
     modified = models.DateTimeField()
 
-
-
     class Meta:
         verbose_name = 'Account'
         
