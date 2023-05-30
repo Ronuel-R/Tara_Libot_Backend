@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.gis.db import models
+
 from django.utils import timezone
 from django.contrib.auth.models import User
 from tara_libot_web_client.storage import OverwriteStorage
@@ -34,17 +34,21 @@ class Account(models.Model):
         return self.user.first_name
 
 class Business(models.Model):
-    id = models.CharField(max_length=5, primary_key= True)
+    id = models.CharField(max_length=5, primary_key=True)
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=256)
     city = models.CharField(max_length=256)
-    location = models.PointField()
-    created_at =models.DateField()
+    created_at = models.DateField()
     modified_at = models.DateField()
-    business_photo = models.ImageField(null =True)
+    business_photo = models.ImageField(null=True)
     closing_time = models.DateTimeField()
     opening_time = models.DateTimeField()
-    rating = models.FloatField(null= True)        
+    rating = models.FloatField(null=True)
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
+    
+    def __str__(self):
+        return self.name
 
 class Comments(models.Model):
     content = models.CharField(max_length= 2000)
@@ -54,6 +58,8 @@ class Comments(models.Model):
     created_at = models.DateField(timezone.now,null=False,editable=False)
     likes= models.IntegerField()
     #reply_comment=models.ForeignKey(Comments, on_delete= models.CASCADE )
+    def __str__(self):
+        return self.content
 
 class Foods(models.Model):
     BREAKFAST = 'Umagahan'
