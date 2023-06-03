@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     ######## Features ###########
     'tara_libot_web_admin',
     'tara_libot_web_client',
+
+    ######## Django ##########
+    'rest_framework',
+    'mapbox_location_field',
     
     
 ]
