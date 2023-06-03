@@ -12,11 +12,11 @@ class LandingPageKiosk(APIView):
         message = None
 
         try:
-            id = request.query_params["id"]
-            foods = Foods.objects.filter(id = id).first()
+            category = request.query_params["category"]
+            foods = Foods.objects.filter(category = category).first()
 
             if foods is None:
-                message = 'Ownership Record Card does not exist'
+                message = 'Dish does not exist'
                 status = not_found
                 return Response({"status": status , "message": message , "data": data, "errors":errors})
 

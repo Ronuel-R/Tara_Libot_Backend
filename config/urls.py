@@ -15,8 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-
+from django.urls import path , re_path
+from tara_libot_web_client.versions.v1p0.features.landing_page_kiosk.views import landing_page_kiosk_view
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path("home/kiosk/", landing_page_kiosk_view.LandingPageKiosk.as_view()),
 ]
