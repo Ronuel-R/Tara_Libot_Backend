@@ -124,3 +124,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiYnJpLWRldjE0MzQiLCJhIjoiY2xpN2h3dmF4MWlpNjNkbWxhbGlqNzR0dCJ9.BBkZBw3g6G-m98V2DD7TGQ'
