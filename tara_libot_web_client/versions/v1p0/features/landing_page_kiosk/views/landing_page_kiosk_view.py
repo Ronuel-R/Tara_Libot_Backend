@@ -3,7 +3,7 @@ from tara_libot_web_client.versions.v1p0.features.landing_page_kiosk.serializers
 from rest_framework.views import APIView
 from constants.http_messages import *
 from rest_framework.response import Response
-
+from constants.auth_user import AuthUser
 class LandingPageKiosk(APIView):
     def get(self, request, *args, **kwargs):
         errors = {}
@@ -11,6 +11,16 @@ class LandingPageKiosk(APIView):
         status = None
         message = None
 
+        # token = AuthUser.get_token(request)
+
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
+        
         try:
             category = request.query_params["category"]
             foods = Foods.objects.filter(category = category).first()
