@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'mapbox_location_field',
     
-    
 ]
 
 MIDDLEWARE = [
