@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'mapbox_location_field',
     ######## Features ###########
     'tara_libot_web_admin',
     'tara_libot_web_client',
+    
     
 ]
 
@@ -125,3 +128,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiYnJpLWRldjE0MzQiLCJhIjoiY2xpN2h3dmF4MWlpNjNkbWxhbGlqNzR0dCJ9.BBkZBw3g6G-m98V2DD7TGQ'
+MAPBOX_KEY = 'pk.eyJ1IjoiYnJpLWRldjE0MzQiLCJhIjoiY2xpN2h3dmF4MWlpNjNkbWxhbGlqNzR0dCJ9.BBkZBw3g6G-m98V2DD7TGQ'
