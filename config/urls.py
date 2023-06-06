@@ -16,7 +16,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from tara_libot_web_client.versions.v1p0.features.login.views.login_views import LoginAdminView
+from tara_libot_web_client.versions.v1p0.features.logout.views.logout_views import LogoutAdminView
+from tara_libot_web_client.versions.v1p0.features.add_review_restaurant.views.add_review_restaurant_views import AddReview
+from tara_libot_web_client.versions.v1p0.features.display_review_restaurant.views.display_reviews_restaurant_views import DisplayRestaurantDetailReview, DisplayRestaurantReview, RestaurantReviewListAPIView
+from tara_libot_web_client.versions.v1p0.features.add_food_review_restaurant.views.add_food_review_views import AddFoodReview
+from tara_libot_web_client.versions.v1p0.features.display_food_review_restaurant.views.display_food_review_views import DisplayFoodDetailReview, DisplayFoodRestaurantReview, FoodReviewListAPIView
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/v1p0/', LoginAdminView.as_view(), name = "login"),
+    path('logout/v1p0/',LogoutAdminView.as_view(), name = "logout"),
+    path ('review/restaurant/<pk>/add/', AddReview.as_view(), name ="add_review"),
+    path ('review/restaurant/<pk>/get/', DisplayRestaurantDetailReview.as_view(),name ="get_review_restaurant_detail"),
+    path ('review/restaurant/get/', DisplayRestaurantReview.as_view(), name= "get_review_all_restaurant"),
+    path ('review/food/<pk>/add/', AddFoodReview.as_view(), name = "add_food_review"),
+    
+    path ('review/food/get/', DisplayFoodRestaurantReview.as_view(), name = "get_food_review"),
+    path ('review/food/<pk>/get/', DisplayFoodDetailReview.as_view(), name = "get_food_detail_review"),
+    path('restaurant/<int:restaurant_id>/reviews/', RestaurantReviewListAPIView.as_view(), name='restaurant_review_list'),
+    path('food/<int:food_id>/reviews/',FoodReviewListAPIView.as_view(), name="food_restaurant_review_list")
 ]
