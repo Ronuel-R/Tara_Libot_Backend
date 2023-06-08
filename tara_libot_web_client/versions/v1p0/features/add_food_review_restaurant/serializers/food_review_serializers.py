@@ -5,6 +5,6 @@ class FoodReviewSerializers(serializers.ModelSerializer):
     created_by = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = FoodComments
-        fields = ['content','rating','created_by','created_at', 'likes']
+        fields = ['content','rating','created_by','created_at']
 
 

@@ -22,6 +22,8 @@ from tara_libot_web_client.versions.v1p0.features.add_review_restaurant.views.ad
 from tara_libot_web_client.versions.v1p0.features.display_review_restaurant.views.display_reviews_restaurant_views import DisplayRestaurantDetailReview, DisplayRestaurantReview, RestaurantReviewListAPIView
 from tara_libot_web_client.versions.v1p0.features.add_food_review_restaurant.views.add_food_review_views import AddFoodReview
 from tara_libot_web_client.versions.v1p0.features.display_food_review_restaurant.views.display_food_review_views import DisplayFoodDetailReview, DisplayFoodRestaurantReview, FoodReviewListAPIView
+from tara_libot_web_client.versions.v1p0.features.like_and_unlike_review_restaurant.views.like_and_unlike_views import LikeAndUnlikeView
+from tara_libot_web_client.versions.v1p0.features.like_and_unlike_reviews_food.views.like_and_unlike_food_views import LikeAndUnlikeFoodView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/v1p0/', LoginAdminView.as_view(), name = "login"),
@@ -34,5 +36,8 @@ urlpatterns = [
     path ('review/food/get/', DisplayFoodRestaurantReview.as_view(), name = "get_food_review"),
     path ('review/food/<pk>/get/', DisplayFoodDetailReview.as_view(), name = "get_food_detail_review"),
     path('restaurant/<int:restaurant_id>/reviews/', RestaurantReviewListAPIView.as_view(), name='restaurant_review_list'),
-    path('food/<int:food_id>/reviews/',FoodReviewListAPIView.as_view(), name="food_restaurant_review_list")
+    path('food/<int:food_id>/reviews/',FoodReviewListAPIView.as_view(), name="food_restaurant_review_list"),
+    path('review/comments/<pk>/add/likes/', LikeAndUnlikeView.as_view(), name = "like_and_unlike_restaurant"),
+    path('review/food/comments/<pk>/add/likes/', LikeAndUnlikeFoodView.as_view(), name = "like_and_unlike_restaurant"),
+
 ]

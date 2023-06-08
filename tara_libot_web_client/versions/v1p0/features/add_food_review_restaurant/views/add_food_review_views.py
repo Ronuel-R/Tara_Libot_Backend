@@ -42,9 +42,9 @@ class AddFoodReview(APIView):
                         rating=request.data['rating'],
                         created_at=timezone.now().astimezone(phil_tz),
                         created_by = user,
-                        likes=0
+                        
                     )
-                
+                    food_comments.likes.set([])
 
                     data = serializer.data
                     data['created_by'] = {

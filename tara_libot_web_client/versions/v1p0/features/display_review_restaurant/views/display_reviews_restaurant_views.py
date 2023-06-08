@@ -61,7 +61,6 @@ class RestaurantReviewListAPIView(APIView):
     def get(self, request, restaurant_id):
         try:
             restaurant = Business.objects.get(id=restaurant_id)
-            
         except Business.DoesNotExist:
             raise Http404
 
@@ -70,10 +69,15 @@ class RestaurantReviewListAPIView(APIView):
         total_reviews = reviews.count()
 
         data = serializer.data
-        for created_at in data:
-            comment = created_at['created_at']
+        for review_data in data:
+            review_id = review_data['id']
+            review = Comments.objects.get(id=review_id)
+            likes_count = review.likes.count()
+            review_data['likes_count'] = likes_count
+
+            comment = review_data['created_at']
             comment_dt = datetime.strptime(comment, '%Y-%m-%d')
-            created_at['created_at'] = comment_dt.strftime('%Y-%m-%d %I:%M %p')
+            review_data['created_at'] = comment_dt.strftime('%Y-%m-%d %I:%M %p')
 
         status = 'ok'
         message = 'Results'

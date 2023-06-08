@@ -44,8 +44,9 @@ class AddReview(APIView):
                     rating=request.data['rating'],
                     created_at=timezone.now().astimezone(phil_tz),
                     created_by = user,
-                    likes=0
+                    
                 )
+                comments.likes.set([])
 
             
 

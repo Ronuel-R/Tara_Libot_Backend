@@ -70,10 +70,16 @@ class FoodReviewListAPIView(APIView):
         total_reviews = food_reviews.count()  # Get the total number of reviews
 
         data = serializer.data
-        for review in data:
-            food_comment = review['created_at']
+        for review_data in data:
+            review_id = review_data['id']
+            review = FoodComments.objects.get(id=review_id)
+            likes_count = review.likes.count()
+            review_data['likes_count'] = likes_count
+
+            food_comment = review_data['created_at']
             food_comment_dt = datetime.strptime(food_comment, '%Y-%m-%d')
-            review['created_at'] = food_comment_dt.strftime('%Y-%m-%d %I:%M %p')
+            review_data['created_at'] = food_comment_dt.strftime('%Y-%m-%d %I:%M %p')
+
 
         status = 'ok'
         message = 'Results'
