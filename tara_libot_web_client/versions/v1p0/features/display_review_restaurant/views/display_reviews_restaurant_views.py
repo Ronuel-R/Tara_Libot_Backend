@@ -8,6 +8,7 @@ from constants.http_messages import *
 from django.http import Http404 
 from constants.auth_user import AuthUser
 from datetime import *
+from django.db.models import Avg
 
 
 
@@ -57,6 +58,8 @@ class DisplayRestaurantReview(APIView):
 
         return Response({"message": message, "data": data, "status": status, "errors": errors})
         
+
+
 class RestaurantReviewListAPIView(APIView):
     def get(self, request, restaurant_id):
         try:
@@ -69,6 +72,8 @@ class RestaurantReviewListAPIView(APIView):
         total_reviews = reviews.count()
 
         data = serializer.data
+        total_rating = 0
+
         for review_data in data:
             review_id = review_data['id']
             review = Comments.objects.get(id=review_id)
@@ -79,12 +84,17 @@ class RestaurantReviewListAPIView(APIView):
             comment_dt = datetime.strptime(comment, '%Y-%m-%d')
             review_data['created_at'] = comment_dt.strftime('%Y-%m-%d %I:%M %p')
 
+            total_rating += review.rating
+
+        restaurant_average_rating = round(total_rating / total_reviews, 2) if total_reviews > 0 else None
+
         status = 'ok'
         message = 'Results'
         errors = {}
         updated_data = {
             "restaurant_name": restaurant.name,
             "total_reviews": total_reviews,
+            "restaurant_average_rating": restaurant_average_rating,
             "reviews": data
         }
         data = updated_data

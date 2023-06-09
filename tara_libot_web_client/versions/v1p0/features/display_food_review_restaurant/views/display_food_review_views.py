@@ -68,7 +68,7 @@ class FoodReviewListAPIView(APIView):
         serializer = DisplayFoodReviewSerializers(food_reviews, many=True)
 
         total_reviews = food_reviews.count()  # Get the total number of reviews
-
+        total_rating = 0
         data = serializer.data
         for review_data in data:
             review_id = review_data['id']
@@ -80,7 +80,9 @@ class FoodReviewListAPIView(APIView):
             food_comment_dt = datetime.strptime(food_comment, '%Y-%m-%d')
             review_data['created_at'] = food_comment_dt.strftime('%Y-%m-%d %I:%M %p')
 
+            total_rating += review.rating
 
+        food_average_rating = round(total_rating / total_reviews, 2) if total_reviews > 0 else None
         status = 'ok'
         message = 'Results'
         errors = {}
@@ -88,6 +90,7 @@ class FoodReviewListAPIView(APIView):
         # Update the serializer data to include food_name and total_reviews
         updated_data = {
             "food_name": food.name,
+            "food_average_rating":food_average_rating,
             "total_reviews": total_reviews,
             "reviews": data
         }
