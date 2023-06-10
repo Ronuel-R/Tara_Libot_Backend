@@ -1,8 +1,8 @@
 from django.db import models
-from django.contrib.gis.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from tara_libot_web_client.storage import OverwriteStorage
+from mapbox_location_field.models import LocationField
 
 def rename_profile(instance, filename):
     extension = filename.split('.')[-1]
@@ -34,19 +34,25 @@ class Account(models.Model):
         return self.user.first_name
 
 class Business(models.Model):
-    id = models.CharField(max_length=5, primary_key= True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=256)
     city = models.CharField(max_length=256)
-    location = models.PointField()
-    created_at =models.DateField()
+    created_at = models.DateField()
     modified_at = models.DateField()
-    business_photo = models.ImageField(null =True)
+    business_photo = models.ImageField(null=True)
     closing_time = models.DateTimeField()
     opening_time = models.DateTimeField()
-    rating = models.FloatField(null= True)        
+    rating = models.FloatField(null=True)
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
+    location= LocationField()
+    
+    def __str__(self):
+        return self.name
 
 class Comments(models.Model):
+    id = models.AutoField(primary_key=True)
     content = models.CharField(max_length= 2000)
     business = models.ForeignKey(Business,on_delete=models.CASCADE)
     rating = models.FloatField()
@@ -54,6 +60,8 @@ class Comments(models.Model):
     created_at = models.DateField(timezone.now,null=False,editable=False)
     likes= models.IntegerField()
     #reply_comment=models.ForeignKey(Comments, on_delete= models.CASCADE )
+    def __str__(self):
+        return self.content
 
 class Foods(models.Model):
     BREAKFAST = 'Umagahan'
@@ -70,11 +78,23 @@ class Foods(models.Model):
         (PASALUBONG, 'Pasalubong'),
     ]
 
-    id = models.CharField(max_length=5, primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
     price = models.FloatField()
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
     food_photo = models.ImageField(null=True)
+
+class FoodComments(models.Model):
+    id = models.AutoField(primary_key=True)
+    content = models.CharField(max_length= 2000)
+    food = models.ForeignKey(Foods,on_delete=models.CASCADE)
+    rating = models.FloatField()
+    created_by= models.ForeignKey(Account, on_delete=models.CASCADE )
+    created_at = models.DateField(timezone.now,null=False,editable=False)
+    likes= models.IntegerField()
+    #reply_comment=models.ForeignKey(Comments, on_delete= models.CASCADE )
+    def __str__(self):
+        return self.content
     
     
