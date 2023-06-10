@@ -8,7 +8,7 @@ class FooodLikeUnlikeSerializer(serializers.ModelSerializer):
         fields = ['id', 'content', 'food', 'rating', 'created_at', 'created_by', 'likes']
 
     def get_created_by(self, obj):
-        user = obj.created_b
+        user = obj.created_by
         return {
             'id': user.id,
             'username': user.user.username,
