@@ -58,7 +58,7 @@ class Comments(models.Model):
     rating = models.FloatField()
     created_by= models.ForeignKey(Account, on_delete=models.CASCADE )
     created_at = models.DateField(timezone.now,null=False,editable=False)
-    likes= models.IntegerField()
+    likes = models.ManyToManyField(Account, related_name='liked_comments')
     #reply_comment=models.ForeignKey(Comments, on_delete= models.CASCADE )
     def __str__(self):
         return self.content
@@ -92,7 +92,7 @@ class FoodComments(models.Model):
     rating = models.FloatField()
     created_by= models.ForeignKey(Account, on_delete=models.CASCADE )
     created_at = models.DateField(timezone.now,null=False,editable=False)
-    likes= models.IntegerField()
+    likes = models.ManyToManyField(Account, related_name='food_liked_comments')
     #reply_comment=models.ForeignKey(Comments, on_delete= models.CASCADE )
     def __str__(self):
         return self.content
