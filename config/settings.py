@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'mapbox_location_field',
+    
     ######## Features ###########
     'tara_libot_web_admin',
     'tara_libot_web_client',
