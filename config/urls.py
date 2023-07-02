@@ -16,7 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from tara_libot_web_client.versions.v1p0.features.maps.create_maps.views import create_map_view
+from tara_libot_web_client.versions.v1p0.features.maps.display_maps.views import display_map_view
+from tara_libot_web_client.versions.v1p0.features.maps.delete_maps.views import delete_map_view
+from tara_libot_web_client.versions.v1p0.features.maps.update_maps.views import update_map_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('marker/create/', create_map_view.MarkerListCreateView.as_view()),
+    path('marker/get/', display_map_view.MarkerListDisplayView.as_view()),
+    path('marker/delete/', delete_map_view.MarkerListDeleteView.as_view()),
+    path('marker/update/', update_map_view.MarkerListUpdateView.as_view()),
 ]

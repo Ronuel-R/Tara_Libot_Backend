@@ -8,9 +8,8 @@ class BusinessMapAdmin(MapAdmin):
     mapbox_view = 'mapbox://styles/mapbox/streets-v11'
 # Register your models here.
 admin.site.register(Foods)
-
-
 admin.site.register(Comments)
 admin.site.register(Account)
 admin.site.register(Business, BusinessMapAdmin)
 admin.site.register(FoodComments)
+admin.site.register(Marker)

@@ -100,4 +100,13 @@ class FoodComments(models.Model):
     def __str__(self):
         return self.content
     
-    
+class Marker(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    description = models.TextField(blank=True)
+    qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
+
+    def __str__(self):
+        return f"Marker: {self.name} (ID: {self.id})"
